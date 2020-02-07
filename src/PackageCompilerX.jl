@@ -17,7 +17,6 @@ current_process_sysimage_path() = unsafe_string(Base.JLOptions().image_file)
 all_stdlibs() = readdir(Sys.STDLIB)
 
 yesno(b::Bool) = b ? "yes" : "no"
-bitflag() = Int == Int32 ? `-m32` : `-m64`
 march() = (Int == Int32 ? `-march=armv7-a` : ``)
 
 # Overwriting an open file is problematic in Windows
@@ -380,7 +379,7 @@ function create_sysimg_from_object_file(input_object::String, sysimage_path::Str
     end
     extra = Sys.iswindows() ? `-Wl,--export-all-symbols` : ``
     compiler = get_compiler()
-    cmd = `$compiler $(bitflag()) $(march()) -shared -L$(julia_libdir) -o $sysimage_path $o_file -ljulia $extra`
+    cmd = `$compiler $(march()) -shared -L$(julia_libdir) -o $sysimage_path $o_file -ljulia $extra`
     @debug "running $cmd"
     windows_compiler_artifact_path(compiler) do
         run(cmd)
@@ -581,7 +580,7 @@ function create_executable_from_sysimg(;sysimage_path::String,
         rpath = `-Wl,-rpath,\$ORIGIN:\$ORIGIN/../lib`
     end
     compiler = get_compiler()
-    cmd = `$compiler -DJULIAC_PROGRAM_LIBNAME=$(repr(sysimage_path)) $(bitflag()) $(march()) -o $(executable_path) $(wrapper) $(sysimage_path) -O2 $rpath $flags`
+    cmd = `$compiler -DJULIAC_PROGRAM_LIBNAME=$(repr(sysimage_path)) $(march()) -o $(executable_path) $(wrapper) $(sysimage_path) -O2 $rpath $flags`
     @debug "running $cmd"
     run(cmd)
     windows_compiler_artifact_path(compiler) do
