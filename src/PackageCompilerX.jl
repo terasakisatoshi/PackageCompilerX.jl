@@ -10,7 +10,7 @@ export create_sysimage, create_app, audit_app, restore_default_sysimage
 include("juliaconfig.jl")
 
 const NATIVE_CPU_TARGET = "native"
-const APP_CPU_TARGET = "generic;armv7-a;armv7-a,neon;armv7-a,neon,vfp4"
+const APP_CPU_TARGET = "armv7-a;armv7-a,neon;armv7-a,neon,vfp4"
 
 current_process_sysimage_path() = unsafe_string(Base.JLOptions().image_file)
 
