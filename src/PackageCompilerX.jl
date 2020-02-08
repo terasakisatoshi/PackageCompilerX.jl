@@ -17,7 +17,7 @@ current_process_sysimage_path() = unsafe_string(Base.JLOptions().image_file)
 all_stdlibs() = readdir(Sys.STDLIB)
 
 yesno(b::Bool) = b ? "yes" : "no"
-march() = (Int == Int32 ? `-march=armv7-a` : ``)
+march() = (Int == Int32 ? `-march=armv7-a+simd` : ``)
 
 # Overwriting an open file is problematic in Windows
 # so move it out of the way first
