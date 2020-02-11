@@ -17,7 +17,8 @@ function default_app_cpu_target()
     elseif Sys.ARCH === :x86_64
         return "generic;sandybridge,-xsaveopt,clone_all;haswell,-rdrnd,base(1)"
     elseif Sys.ARCH === :arm
-        return "armv7-a;armv7-a,neon;armv7-a,neon,vfp4"
+        #return "armv7-a;armv7-a,neon;armv7-a,neon,vfp4"
+        return "arm1176jzf-s"
     elseif Sys.ARCH === :aarch64
         return "generic" # is this really the best here?
     elseif Sys.ARCH === :powerpc64le
@@ -49,7 +50,8 @@ function march()
     elseif Sys.ARCH === :x86_64
         return "-march=x86-64"
     elseif Sys.ARCH === :arm
-        return "-march=armv7-a+simd"
+        #return "-march=armv7-a+simd"
+        return "-march=armv6"
     elseif Sys.ARCH === :aarch64
         return "-march=armv8-a+crypto+simd"
     elseif Sys.ARCH === :powerpc64le
